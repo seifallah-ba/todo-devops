@@ -10,7 +10,20 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to your MongoDB database (replace with your database URL)
-mongoose.connect("mongodb://127.0.0.1/todo");
+// mongoose.connect(`mongodb://${process.env.MONGO_URI}/todo`);
+
+const connectWithRetry = () => {
+  mongoose
+    .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("MongoDB connected successfully"))
+    .catch((err) => {
+      console.error("MongoDB connection error:", err);
+      setTimeout(connectWithRetry, 5000); // Retry after 5 seconds
+    });
+};
+
+connectWithRetry();
+
 
 // Check for database connection errors
 mongoose.connection.on("error", (error) => {
