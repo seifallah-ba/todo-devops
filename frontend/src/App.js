@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Todo from './components/Todo';
 
-
 function App() {
   const headStyle = {
     textAlign: "center",
