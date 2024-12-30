@@ -1,7 +1,7 @@
 pipeline {
     agent any
 	stages {
-        stage('Build') {
+        stage('Fetch') {
             steps {
 				echo 'fetching code from git'
 				script {
@@ -12,6 +12,19 @@ pipeline {
 				echo 'fetching is done!'
 				echo 'npm install'
 				echo 'npm run build'
+            }
+        }
+		 stage('Build') {
+            steps {
+				echo 'Hold on, I am installing your packages...'
+				script {
+                    sh '''
+					cd todo-devops/frontend
+                    npm install
+					npm run build
+                    '''
+                }
+				echo 'Finally, Installed and Built'
             }
         }
         stage('Eslint Test') {
