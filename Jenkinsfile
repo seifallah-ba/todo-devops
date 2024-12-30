@@ -6,13 +6,11 @@ pipeline {
 				echo 'fetching code from git'
 				script {
                     sh '''
-					rm -rf todo-devops/*
+					rm -rf todo-devops
                     git clone -b develop https://github.com/seifallah-ba/todo-devops.git
                     '''
                 }
 				echo 'fetching is done!'
-				echo 'npm install'
-				echo 'npm run build'
             }
         }
 		 stage('Build') {
